@@ -16,15 +16,15 @@ Airflow 2.0.0
 
 1. Clone the repository:
 
-git clone https://github.com/user/repository.git
+```git clone https://github.com/user/repository.git```
 
 2. Navigate to the repository directory:
 
-cd repository
+```cd repository```
 
 3. Install the requirements:
 
-pip install -r requirements.txt
+```pip install -r requirements.txt```
 
 
 ##Workflows
@@ -33,8 +33,10 @@ The workflows for training and deploying the model are defined in the model_trai
 
 To start the Airflow webserver and scheduler, run the following commands:
 
+```
 airflow webserver
 airflow scheduler
+```
 
 The workflows can be accessed and triggered through the Airflow web UI at http://localhost:8080.
 
@@ -53,7 +55,7 @@ The following scripts are included in the repository:
 
 The trained model can be deployed using Node-RED. To start the Node-RED server, run the following command:
 
-node-red
+```node-red```
 
 The Node-RED flow can be accessed and modified through the web UI at http://localhost:1880.
 
