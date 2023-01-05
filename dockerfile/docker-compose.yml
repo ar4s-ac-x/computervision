@@ -1,0 +1,42 @@
+version: '1'
+
+services:
+  redis:
+    image: 'redis:alpine'
+    container_name: redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./data:/data
+    command: redis-server --appendonly yes
+    restart: always
+  postgres:
+    image: 'postgres:12-alpine'
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    restart: always
+  webserver:
+    build: .
+    container_name: webserver
+    command: webserver
+    volumes:
+      - ./scripts:/usr/local/airflow/dags
+      - ./node-red:/usr/src/node-red/
+      - ./models:/usr/src/app/models
+      - ./data:/usr/src/app/data
+      - ./logs:/usr/src/app/logs
+      - ./results:/usr/src/app/results
+    ports:
+      - '8080:8080'
+      - '8081:8081'
+    depends_on:
+      - postgres
+      - redis
+    restart: always
